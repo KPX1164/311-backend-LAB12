@@ -17,6 +17,7 @@ public class EventController {
     final EventService eventService;
 
     public EventController(EventService eventService) {
+
         this.eventService = eventService;
     }
 

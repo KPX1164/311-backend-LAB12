@@ -5,12 +5,16 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import se331.lab.rest.entity.Event;
+import se331.lab.rest.entity.Organiser;
 import se331.lab.rest.repository.EventRepository;
+import se331.lab.rest.repository.OrganiserRepository;
 
 @Component
 @RequiredArgsConstructor
 public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     final EventRepository eventRepository;
+    final OrganiserRepository organiserRepository;
+
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         eventRepository.save(Event.builder()
@@ -22,7 +26,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                                 .time("3.00-4.00 pm.")
                                 .petAllowed(false)
                                 .organiser("CAMT").build());
-                eventRepository.save(Event.builder()
+        eventRepository.save(Event.builder()
                                 .category("Academic")
                                 .title("Commencement Day")
                                 .description("A time for celebration")
@@ -31,7 +35,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                                 .time("8.00am-4.00 pm.")
                                 .petAllowed(false)
                                 .organiser("CMU").build());
-                eventRepository.save(Event.builder()
+        eventRepository.save(Event.builder()
                                 .category("Cultural")
                                 .title("Loy Krathong")
                                 .description("A time for Krathong")
@@ -40,7 +44,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                                 .time("8.00-10.00 pm.")
                                 .petAllowed(false)
                                 .organiser("Chiang Mai").build());
-                eventRepository.save(Event.builder()
+        eventRepository.save(Event.builder()
                                 .category("Cultural")
                                 .title("Songkran")
                                 .description("Let's Play Water")
@@ -49,6 +53,9 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                                 .time("10.00am - 6.00 pm.")
                                 .petAllowed(true)
                                 .organiser("Chiang Mai Municipality").build());
-            }
+        organiserRepository.save(Organiser.builder()
+                                .name("Helen Bany")
+                                .address("646 Soi Somanas Nakhonsawan Road Somanas, Bangkok").build());
+    }
 }
 

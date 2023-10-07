@@ -1,11 +1,18 @@
 package se331.lab.rest.dao;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 import se331.lab.rest.entity.Organiser;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
+@Profile("manual")
 public class OrganiserDaoImpl implements OrganiserDao{
     List<Organiser> organiserList;
 
@@ -51,12 +58,13 @@ public class OrganiserDaoImpl implements OrganiserDao{
     }
 
     @Override
-    public List<Organiser> getOrganisers(Integer pageSize, Integer page) {
+    public Page<Organiser> getOrganisers(Integer pageSize, Integer page) {
         pageSize = pageSize == null ? organiserList.size() : pageSize;
         page = page == null ? 1 : page;
 
         int firstIndex = (page - 1) * pageSize;
-        return organiserList.subList(firstIndex, firstIndex+pageSize);
+        return new PageImpl<Organiser>(organiserList.subList(firstIndex,firstIndex+pageSize), PageRequest.of(page,pageSize),organiserList.size());
+
     }
 
     @Override
@@ -67,4 +75,11 @@ public class OrganiserDaoImpl implements OrganiserDao{
                 .findFirst()
                 .orElse(null);
     }
+    @Override
+    public Organiser save(Organiser organiser) {
+                organiser.setId(organiserList.get(organiserList.size()-1).getId()+1);
+                organiserList.add(organiser);
+                return organiser;
+            }
+
 }
