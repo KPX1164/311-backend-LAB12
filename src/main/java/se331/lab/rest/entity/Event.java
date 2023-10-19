@@ -1,11 +1,10 @@
 package se331.lab.rest.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 @Data
 @Builder
 @Entity
@@ -15,7 +14,6 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
-
     Long id;
     String category;
     String title;
@@ -24,5 +22,13 @@ public class Event {
     String date;
     String time;
     Boolean petAllowed;
-    String organiser;
+    @ManyToOne
+    Organiser organiser;
+
+    @ManyToMany
+    @Builder.Default
+    List<Participant> participants = new ArrayList<>();
+
+    @ElementCollection
+    List<String> images;
 }
