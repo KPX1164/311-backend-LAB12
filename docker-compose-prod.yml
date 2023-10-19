@@ -7,7 +7,7 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: password
-#    restart: always
+    restart: always
 
   phpmyadmin:
     image: phpmyadmin
@@ -16,7 +16,7 @@ services:
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: password
-#    restart: always
+    restart: always
 
   backend:
     image: ${DOCKER_HUB_USERNAME}/se331-backend:latest
@@ -26,4 +26,4 @@ services:
       - JAVA_PROFILE=prod,db
     depends_on:
       - db
-#    restart: always
+    restart: always
