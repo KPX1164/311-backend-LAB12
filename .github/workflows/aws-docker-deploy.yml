@@ -33,15 +33,15 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          username: ${{ secrets.DOCKER_HUBDOCKER_HUB_TO_USERNAME }}
+          password: ${{ secrets.KEN }}
 
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: [your-docker-hub-account]/se331-backend:latest
+          tags: hakush1n/se331-backend:latest
 
       - name: Copy file via SSH password
         uses: appleboy/scp-action@v0.1.4
