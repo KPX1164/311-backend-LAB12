@@ -21,7 +21,7 @@ services:
   backend:
     image: ${DOCKER_HUB_USERNAME}/331-backend-lab12:latest
     ports:
-      - "8100:8080"
+      - "8188:8080"
     environment:
       - JAVA_PROFILE=prod,db
     depends_on:
